@@ -11,7 +11,7 @@ function Greenhouse() {
   const {themeName, setThemeName} = useTheme();
   return (
     <section>
-      <img className='greenhouse-img' src={`${themeName}Image`} alt='greenhouse' />
+      <img className='greenhouse-img' src={themeName === "day" ? dayImage : nightImage} alt='greenhouse' />
       <LightSwitch />
       <ClimateStats />
     </section>
