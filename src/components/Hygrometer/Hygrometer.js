@@ -6,10 +6,12 @@ import { useEffect, useState } from 'react';
 function Hygrometer() {
   const {humidity, setHumidity} = useClimate();
   const [slowHumidity, setSlowHumidity] = useState(humidity);
+
   useEffect(() => {
     if(humidity === slowHumidity) return;
+
     const timer = setTimeout(() => {
-      setSlowHumidity( slowHumidity < humidity ? (slowHumidity) => slowHumidity + 1 : slowHumidity - 1);
+      setSlowHumidity((prevState) => slowHumidity < humidity ? prevState + 1 : prevState - 1);
     }, 1000);
     return () => {
       clearTimeout(timer);
