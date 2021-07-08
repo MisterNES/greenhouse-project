@@ -5,24 +5,24 @@ import { useEffect, useState } from 'react';
 
 
 function Thermometer() {
-  let state = true;
+  // let state = true;
   const {temp, setTemp} = useClimate();
 
   const [slowTemp, setSlowTemp] = useState(temp);
 
   useEffect(()=>{
 
-    if(state){
-      setTimeout(()=>{
-        setSlowTemp((prevState)=> prevState < temp ? prevState + 1 : prevState - 1)
-      },1000);
+    if(temp === slowTemp) return
+
+    const timer = setTimeout(()=>{
+        setSlowTemp((prevState)=> slowTemp < temp ? prevState + 1 : prevState - 1)
+    },1000);
+
+    return ()=>{
+      clearTimeout(timer);
     }
 
-    if (slowTemp === temp){
-      return (state=false);
-    }
-
-  },[slowTemp])
+  },[temp, slowTemp])
 
   return (
     <section>
